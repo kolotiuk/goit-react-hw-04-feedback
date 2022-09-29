@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import s from './feedbackOptions.module.scss';
 
 const FeedbackOptions = ({ options, addCount }) => {
-  const optionsKeys = [...Object.keys(options)];
+  const optionsKeys = Object.keys(options);
 
   return (
     <div>
@@ -11,7 +11,7 @@ const FeedbackOptions = ({ options, addCount }) => {
           <button
             key={key}
             type="button"
-            onClick={addCount}
+            onClick={() => addCount(key)}
             name={key}
             className={s.btn}
           >
@@ -25,10 +25,7 @@ const FeedbackOptions = ({ options, addCount }) => {
 
 export default FeedbackOptions;
 
-PropTypes.propTypes = {
-  options: PropTypes.objectOf({
-    good: PropTypes.number.isRequired,
-    neutral: PropTypes.number.isRequired,
-    bad: PropTypes.number.isRequired,
-  }),
+FeedbackOptions.propTypes = {
+  options: PropTypes.objectOf(PropTypes.number.isRequired),
+  addCount: PropTypes.func.isRequired,
 };
